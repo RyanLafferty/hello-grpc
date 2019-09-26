@@ -1,0 +1,57 @@
+version: "3"
+services:
+  grpc-firestore:
+    container_name: grpc-firestore
+    build:
+      context: .
+      dockerfile: ./config/firestore/Dockerfile
+    environment:
+      - FIRESTORE_PROJECT_ID=test-firestore-project
+  node-grpc-server:
+    container_name: node-grpc-server
+    build:
+      context: .
+      dockerfile: ./config/servers/node/Dockerfile
+    environment:
+      - FIREBASE_FIRESTORE_EMULATOR_ADDRESS=grpc-firestore:8080
+      - FIRESTORE_PROJECT_ID=test-firestore-project
+  go-grpc-server:
+    container_name: go-grpc-server
+    build:
+      context: .
+      dockerfile: ./config/servers/go/Dockerfile
+    environment:
+      - FIRESTORE_EMULATOR_HOST=grpc-firestore:8080
+      - FIRESTORE_PROJECT_ID=test-firestore-project
+  ruby-grpc-server:
+    container_name: ruby-grpc-server
+    build:
+      context: .
+      dockerfile: ./config/servers/ruby/Dockerfile
+    environment:
+      - FIRESTORE_EMULATOR_HOST=grpc-firestore:8080
+      - FIRESTORE_PROJECT_ID=test-firestore-project
+  node-grpc-client:
+    container_name: node-grpc-client
+    build:
+      context: .
+      dockerfile: ./config/clients/node/Dockerfile
+    ports:
+      - "3000:8080"
+    environment:
+      - FIREBASE_FIRESTORE_EMULATOR_ADDRESS=grpc-firestore:8080
+      - FIRESTORE_PROJECT_ID=test-firestore-project
+  go-grpc-client:
+    container_name: go-grpc-client
+    build:
+      context: .
+      dockerfile: ./config/clients/go/Dockerfile
+    ports:
+      - "3001:8080"
+  ruby-grpc-client:
+    container_name: ruby-grpc-client
+    build:
+      context: .
+      dockerfile: ./config/clients/ruby/Dockerfile
+    ports:
+      - "3002:8080"
