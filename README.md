@@ -39,7 +39,13 @@ TODO
 
 #### Install RVM
 
+```bash
+# Ubuntu
 TODO
+
+# MacOS
+./scripts/rvm-macos-installation.sh
+```
 
 #### Install GRPC Golang Tools
 
