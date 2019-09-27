@@ -29,7 +29,13 @@ TODO
 
 #### Install Ruby
 
+```bash
+# Ubuntu
 TODO
+
+# MacOS
+./scripts/ruby-macos-installation.sh
+```
 
 #### Install GRPC Golang Tools
 
